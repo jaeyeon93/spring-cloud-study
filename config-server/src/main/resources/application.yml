@@ -1,0 +1,15 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-service
+
+  cloud:
+    config:
+      server:
+        git:
+#          uri: file:///Users/jaeyeonkim/Desktop/git-local-repo
+          uri: https://github.com/jaeyeon93/spring-cloud-config
+#          username: [username]
+#          password: [password]

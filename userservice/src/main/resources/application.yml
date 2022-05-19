@@ -31,6 +31,12 @@ logging:
   level:
     me.jimmy.userservice: DEBUG
 
-token:
-  expiration_time: 86400000 # 하루짜리 토큰, 밀리세크
-  secret: user_token # 임의의 값
+
+#token:
+#  expiration_time: 86400000 # 하루짜리 토큰, 밀리세크
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans
+#  secret: user_token # 임의의 값

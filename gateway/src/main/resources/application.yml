@@ -36,6 +36,16 @@ spring:
 #            - AddRequestHeader=second-request, second-request-header-value
 #            - AddResponseHeader=second-response, second-response-header-value
             - CustomerFilter
+
+        # user-service
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
@@ -61,6 +71,8 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
             - AuthorizationHeaderFilter
+
+        # catalog-service
         - id: catalog-service
           uri: lb://CATALOG-SERVICE
           predicates:
@@ -76,6 +88,11 @@ spring:
             preLogger: true
             postLogger: true
 
-token:
-  expiration_time: 86400000 # 하루짜리 토큰, 밀리세크
-  secret: user_token # 임의의 값
+#token:
+#  expiration_time: 86400000 # 하루짜리 토큰, 밀리세크
+#  secret: user_token # 임의의 값
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace
