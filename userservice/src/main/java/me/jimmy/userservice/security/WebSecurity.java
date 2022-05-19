@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFilter;
 
 
 @Configuration
@@ -29,7 +28,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 //       http.authorizeRequests().antMatchers("/users/**").permitAll();
         http.authorizeRequests().antMatchers("/**")
-                .hasIpAddress("192.168.0.8")
+                .hasIpAddress("192.168.0.2")
                 .and()
                 .addFilter(getAuthenticationFilter());
 
