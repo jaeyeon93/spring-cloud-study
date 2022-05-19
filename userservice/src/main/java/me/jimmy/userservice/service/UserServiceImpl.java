@@ -5,9 +5,12 @@ import me.jimmy.userservice.entity.UserEntity;
 import me.jimmy.userservice.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Service
@@ -30,5 +33,18 @@ public class UserServiceImpl implements UserService {
         userEntity.setEncryptedPwd(passwordEncoder.encode(userDto.getPwd()));
         userRepository.save(userEntity);
         return null;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserEntity userEntity = userRepository.findByEmail(username);
+
+        if (userEntity == null) {
+            throw new UsernameNotFoundException(username);
+        }
+
+        return new User(userEntity.getEmail(), userEntity.getEncryptedPwd(),
+                true, true, true, true,
+                new ArrayList<>());
     }
 }
