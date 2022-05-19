@@ -1,5 +1,6 @@
 package me.jimmy.userservice.service;
 
+import me.jimmy.userservice.dto.ResponseOrder;
 import me.jimmy.userservice.dto.UserDto;
 import me.jimmy.userservice.entity.UserEntity;
 import me.jimmy.userservice.repository.UserRepository;
@@ -7,10 +8,12 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -33,6 +36,27 @@ public class UserServiceImpl implements UserService {
         userEntity.setEncryptedPwd(passwordEncoder.encode(userDto.getPwd()));
         userRepository.save(userEntity);
         return null;
+    }
+
+    @Override
+    public UserDto getUserByUserId(String userId) {
+        UserEntity userEntity = userRepository.findByUserId(userId);
+
+        if (userEntity == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
+
+        List<ResponseOrder> orderList = new ArrayList<>();
+        userDto.setOrders(orderList);
+
+        return userDto;
+    }
+
+    @Override
+    public Iterable<UserEntity> getUserByAll() {
+        return userRepository.findAll();
     }
 
     @Override
