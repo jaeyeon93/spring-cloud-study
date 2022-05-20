@@ -1,2 +1,6 @@
 encrypt:
-  key: helloworld
+#  key: helloworld
+  key-store:
+    location: file://${user.home}/keys/msaEncryptionKey.jks
+    password: 123456
+    alias: msaEncryptionKey
