@@ -37,7 +37,7 @@ greeting:
 
 logging:
   level:
-    me.jimmy.userservice: DEBUG
+    me.jimmy.userservice.client: DEBUG
 
 
 #token:

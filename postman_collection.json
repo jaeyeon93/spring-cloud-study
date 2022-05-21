@@ -1,0 +1,308 @@
+{
+	"info": {
+		"_postman_id": "80757f25-0da6-4027-8b55-66e6f07c005a",
+		"name": "Spring MSA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET second-service/check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/second-service/check",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"second-service",
+						"check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST user-service/users",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test9@email.com\",\n    \"name\": \"testName9\",\n    \"pwd\": \"12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/user-service/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user-service",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /user-service/welcome",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMGNlMzUyZS1hODdhLTRmYjUtOWMwOS00ZDkzODVkYjA3YmIiLCJleHAiOjE2NTMwMzc4MjB9.TTtFMmalkpG5ygRd17_q6ZSY9adJZr1GWKYxgjA3RxnPAX9Os6nYg0n5HZEYBasxve3SFQxVXKqHBihN9SZVVQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/user-service/welcome",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user-service",
+						"welcome"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /user-service/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"email\": \"test9@email.com\",\n        \"password\": \"12345\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/user-service/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user-service",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /user-service/actuator/refresh",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/user-service/actuator/refresh",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user-service",
+						"actuator",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /user-service/actuator/beans",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/user-service/actuator/beans",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user-service",
+						"actuator",
+						"beans"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /user-service/health_check",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjMTllMDM2Zi1lZTVlLTQyYzctYmYxYi03OTUwNGZiZTJiZjkiLCJleHAiOjE2NTM4ODA0NTF9.zvM7x9tYmNoaLidHxhydzTASsEpLc1T3jBK4JhSErvMBcBrd7tkRnmSh0fM7aJKjnCRylAr_5XLBpywNnLlWsw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/user-service/health_check",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user-service",
+						"health_check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /user-service/actuator/busrefresh",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/user-service/actuator/busrefresh",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user-service",
+						"actuator",
+						"busrefresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /encrypt",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "user_token_default"
+				},
+				"url": {
+					"raw": "localhost:8888/encrypt",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"encrypt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /decrypt",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "AQBWYHDVC3AJ7zdc+lSrFSXWXNHH7MQGO17fXYi5icps0hk5cDnRuPlPkee7aqrDx9SBJ8+GldmU402rDsgVCdAYVvx4E5bSxrxUWJwXCUnwz9aAMZV/EOpvahuEOx5tA4jROpTMdGe9wtxGWHrXP9xEEf5sQrOmdFLuFfHYE//26KjbpcaWH1/D/jIKw/FC+nFCn582T1Jg/BTgNUUQ/rpQ/GZhlqk2xPHdlZf6QDkiZRr9g7U44w9URV63EpTzpxy1DzNIyl37KQzGLwXIyLtYatiOvaU5Phm8QeDjGUKGWq+84df3aqBZxliGEhVp21p9ws/b1RzMaeehfghUwKKNBayb5nJNUSdbQJuo/Mtc3hqpwOhl6e7juN0ZLZrWvHUVOZ16z2JvfpABP5iUXhgz"
+				},
+				"url": {
+					"raw": "localhost:8888/decrypt",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"decrypt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /order-service/{userId}/orders",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productId\": \"test-product\",\n    \"qty\": 10,\n    \"unitPrice\": 750\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/order-service/1a8d2e0a-65d3-45a6-8104-23547f362451/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"order-service",
+						"1a8d2e0a-65d3-45a6-8104-23547f362451",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /user-service/users/{userId}",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxYThkMmUwYS02NWQzLTQ1YTYtODEwNC0yMzU0N2YzNjI0NTEiLCJleHAiOjE2NTM5MjcxMzF9.s5rTR1g6sL_Uw9aO3nppFQp9MUvoTvijc--CMIzfD9wFoFUxYZ-_jGH_fnvI5sFTozWCVaGR14R870wCOyDZ4A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/user-service/users/c12ebefa-86d1-4ed6-8a9b-7876d3820b4f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user-service",
+						"users",
+						"c12ebefa-86d1-4ed6-8a9b-7876d3820b4f"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
