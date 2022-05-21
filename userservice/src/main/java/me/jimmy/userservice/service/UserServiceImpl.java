@@ -1,5 +1,6 @@
 package me.jimmy.userservice.service;
 
+import me.jimmy.userservice.client.OrderServiceClient;
 import me.jimmy.userservice.dto.ResponseOrder;
 import me.jimmy.userservice.dto.UserDto;
 import me.jimmy.userservice.entity.UserEntity;
@@ -28,12 +29,14 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder passwordEncoder;
     private Environment env;
     private RestTemplate restTemplate;
+    private OrderServiceClient orderServiceClient;
 
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, Environment env, RestTemplate restTemplate) {
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, Environment env, RestTemplate restTemplate, OrderServiceClient orderServiceClient) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.env = env;
         this.restTemplate = restTemplate;
+        this.orderServiceClient = orderServiceClient;
     }
 
     @Override
@@ -60,11 +63,13 @@ public class UserServiceImpl implements UserService {
 //        List<ResponseOrder> orderList = new ArrayList<>();
         String orderUrl = String.format(env.getProperty("order_service.url"), userId); // 파라미터 치환
         // Using RestTemplate
-        ResponseEntity<List<ResponseOrder>> orderListResponse = restTemplate.exchange(orderUrl, HttpMethod.GET, null,
-                new ParameterizedTypeReference<>() {
-                });
-        userDto.setOrders(orderListResponse.getBody());
+//        ResponseEntity<List<ResponseOrder>> orderListResponse = restTemplate.exchange(orderUrl, HttpMethod.GET, null,
+//                new ParameterizedTypeReference<>() {
+//                });
+//        userDto.setOrders(orderListResponse.getBody());
 
+        // Using Spring Feign
+        userDto.setOrders(orderServiceClient.getOrders(userId));
         return userDto;
     }
 
