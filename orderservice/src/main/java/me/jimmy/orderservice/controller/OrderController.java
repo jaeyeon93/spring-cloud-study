@@ -4,6 +4,7 @@ import me.jimmy.orderservice.dto.OrderDto;
 import me.jimmy.orderservice.dto.RequestOrder;
 import me.jimmy.orderservice.dto.ResponseOrder;
 import me.jimmy.orderservice.entity.OrderEntity;
+import me.jimmy.orderservice.kafka.KafkaProducer;
 import me.jimmy.orderservice.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -21,10 +22,12 @@ public class OrderController {
 
     private Environment env;
     private OrderService orderService;
+    private KafkaProducer producer;
 
-    public OrderController(Environment env, OrderService orderService) {
+    public OrderController(Environment env, OrderService orderService, KafkaProducer producer) {
         this.env = env;
         this.orderService = orderService;
+        this.producer = producer;
     }
 
     @PostMapping("/{userId}/orders")
@@ -32,11 +35,14 @@ public class OrderController {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
+        // jpa 작업
         OrderDto orderDto = modelMapper.map(request, OrderDto.class);
         orderDto.setUserId(userId);
         OrderDto createDto = orderService.createOrder(orderDto);
         ResponseOrder returnValue = modelMapper.map(createDto, ResponseOrder.class);
 
+        // kafka
+        producer.send("example-catalog-topic", orderDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(returnValue);
     }
 
