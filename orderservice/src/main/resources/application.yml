@@ -13,13 +13,17 @@ spring:
       path: /h2-console
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     generate-ddl: true
 
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:testdb
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test
+    username: jimmy
+    password: 12345
 
 eureka:
   client:
